@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Timer with Background Image</title>
+	<style>
+		body {
+			background-image: url('https://i0.wp.com/insider-gaming.com/wp-content/uploads/2023/02/sons-of-the-forest-1.jpg?fit=1920%2C1080&ssl=1');
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		
+		.timer-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 55px;
+		}
+	</style>
+</head>
+<body>
+	<div class="timer-container">
+<span
+		<p style="background-color:#364254;">Time until next scheduled update</p>
+		<p id="timer" style="background-color:#364254;"></p>
+	</div>
+
+	<script>
+		var countDownDate = new Date();
+countDownDate.setUTCHours(17, 0, 0, 0);
+countDownDate.setDate(countDownDate.getDate() + 14);
+
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("timer").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+
+    if (distance < 0) {
+        clearInterval(x);
+        countDownDate.setUTCHours(17, 0, 0, 0);
+        countDownDate.setDate(countDownDate.getDate() + 14);
+    }
+}, 1000);
+
+	</script>
+</body>
+</html>
