@@ -1,31 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Timer with Background Image</title>
-	<style>
-		body {
-			background-image: url('https://i0.wp.com/insider-gaming.com/wp-content/uploads/2023/02/sons-of-the-forest-1.jpg?fit=1920%2C1080&ssl=1');
-			background-repeat: no-repeat;
-			background-size: cover;
-		}
-		
-		.timer-container {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			color: white;
-			font-size: 60px;
-		}
-	</style>
+	<title>SonsOTForest Timer</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://i0.wp.com/insider-gaming.com/wp-content/uploads/2023/02/sons-of-the-forest-1.jpg?fit=1920%2C1080&ssl=1');
+            background-size: cover;
+            background-position: center center;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 255, 0.8);
+        }
+
+        h1 {
+            font-size: 50px;
+            margin: 0;
+            text-align: center;
+        }
+
+        #timer {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 30px;
+            }
+
+            #timer {
+                font-size: 20px;
+            }
+        }
+    </style>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604411222404089"
      crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="timer-container">
+	<div class="container">
 <span
 		<p>Time until next scheduled update</p>
-		<p id="timer"></p>
+		<div id="timer"></div>
 	</div>
 
 	<script>
