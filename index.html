@@ -59,28 +59,44 @@
 	</div>
 
 	<script>
-		var countDownDate = new Date();
-countDownDate.setUTCHours(17, 0, 0, 0);
-countDownDate.setDate(countDownDate.getDate() + 14);
+function getTimeRemaining() {
+  const targetDate = new Date();
+  targetDate.setUTCHours(17, 0, 0, 0); // Set target time to 5PM GMT
+  const now = new Date();
+  let timeRemaining = targetDate.getTime() - now.getTime();
+  if (timeRemaining < 0) {
+    timeRemaining += 14 * 24 * 60 * 60 * 1000; // Add 14 days if target time has passed
+  }
+  const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
+  const seconds = Math.floor((timeRemaining / 1000) % 60);
+  return {
+    timeRemaining,
+    days,
+    hours,
+    minutes,
+    seconds
+  };
+}
 
-var x = setInterval(function() {
-    var now = new Date().getTime();
-    var distance = countDownDate - now;
-
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById("timer").innerHTML = days + "d " + hours + "h "
-    + minutes + "m " + seconds + "s ";
-
-    if (distance < 0) {
-        clearInterval(x);
-        countDownDate.setUTCHours(17, 0, 0, 0);
-        countDownDate.setDate(countDownDate.getDate() + 14);
+function initializeClock() {
+  const timer = document.getElementById('timer');
+  function updateClock() {
+    const { timeRemaining, days, hours, minutes, seconds } = getTimeRemaining();
+    if (timeRemaining <= 0) {
+      clearInterval(intervalId); // Stop the timer if target time has passed
+      initializeClock(); // Reset the timer to 14 days
+    } else {
+      timer.innerHTML = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
     }
-}, 1000);
+  }
+  updateClock(); // Update the timer immediately
+  const intervalId = setInterval(updateClock, 1000); // Update the timer every second
+}
+
+initializeClock();
+
 
 	</script>
 </body>
