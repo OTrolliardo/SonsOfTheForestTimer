@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+a<!DOCTYPE html>
 <html>
 <head>
 	<title>SonsOTForest Timer</title>
@@ -60,12 +60,14 @@
 
 	<script>
 function getTimeRemaining() {
-  const targetDate = new Date();
-  targetDate.setUTCHours(17, 0, 0, 0); // Set target time to 5PM GMT
   const now = new Date();
-  let timeRemaining = targetDate.getTime() - now.getTime();
+  const daysUntilNextThursday = (11 - now.getDay()) % 7; // Calculate the number of days until the next Thursday
+  const nextThursday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNextThursday);
+  nextThursday.setUTCHours(17, 0, 0, 0); // Set the target time to 5PM GMT on the next Thursday
+  let timeRemaining = nextThursday.getTime() - now.getTime();
   if (timeRemaining < 0) {
-    timeRemaining += 14 * 24 * 60 * 60 * 1000; // Add 14 days if target time has passed
+    nextThursday.setDate(nextThursday.getDate() + 14); // Add 14 days if target time has passed
+    timeRemaining = nextThursday.getTime() - now.getTime();
   }
   const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
   const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
@@ -80,22 +82,6 @@ function getTimeRemaining() {
   };
 }
 
-function initializeClock() {
-  const timer = document.getElementById('timer');
-  function updateClock() {
-    const { timeRemaining, days, hours, minutes, seconds } = getTimeRemaining();
-    if (timeRemaining <= 0) {
-      clearInterval(intervalId); // Stop the timer if target time has passed
-      initializeClock(); // Reset the timer to 14 days
-    } else {
-      timer.innerHTML = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-    }
-  }
-  updateClock(); // Update the timer immediately
-  const intervalId = setInterval(updateClock, 1000); // Update the timer every second
-}
-
-initializeClock();
 
 
 	</script>
