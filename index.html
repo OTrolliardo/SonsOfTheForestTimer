@@ -59,31 +59,28 @@ a<!DOCTYPE html>
 	</div>
 
 	<script>
-function getTimeRemaining() {
-  const now = new Date();
-  const daysUntilNextThursday = (11 - now.getDay()) % 7; // Calculate the number of days until the next Thursday
-  const nextThursday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNextThursday);
-  nextThursday.setUTCHours(17, 0, 0, 0); // Set the target time to 5PM GMT on the next Thursday
-  let timeRemaining = nextThursday.getTime() - now.getTime();
-  if (timeRemaining < 0) {
-    nextThursday.setDate(nextThursday.getDate() + 14); // Add 14 days if target time has passed
-    timeRemaining = nextThursday.getTime() - now.getTime();
-  }
-  const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
-  const seconds = Math.floor((timeRemaining / 1000) % 60);
-  return {
-    timeRemaining,
-    days,
-    hours,
-    minutes,
-    seconds
-  };
-}
+		var countDownDate = new Date();
+countDownDate.setUTCHours(17, 0, 0, 0);
+countDownDate.setDate(countDownDate.getDate() + 14);
 
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
 
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+    document.getElementById("timer").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+
+    if (distance < 0) {
+        clearInterval(x);
+        countDownDate.setUTCHours(17, 0, 0, 0);
+        countDownDate.setDate(countDownDate.getDate() + 14);
+    }
+}, 1000);
 	</script>
 </body>
 </html>
